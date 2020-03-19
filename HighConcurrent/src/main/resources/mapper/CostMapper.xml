@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.batchInsert.dao.CostDao" >
+  <resultMap id="BaseResultMap" type="com.batchInsert.domain.Cost" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="money" property="money" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, create_date, money
+  </sql>
+
+  <insert id="batchInsert" parameterType="java.util.ArrayList" >
+    insert into cost (type, create_date, money)
+    values
+    <foreach collection="listData" item="l" separator=",">
+      (#{l.type},#{l.createDate},#{l.money})
+    </foreach>
+  </insert>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from cost
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+    <select id="selectTotal" resultType="java.lang.Integer" parameterType="Map">
+      select count(1) from cost c  <include refid="selectSql" />
+    </select>
+
+  <sql id="selectSql">
+        <where>
+            <if test="type!=null and type !=''">
+                type = #{type}
+            </if>
+        </where>
+  </sql>
+
+  <select id="ListPage" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from cost
+    <include refid="selectSql" />
+    LIMIT #{startNo},#{pageSize}
+  </select>
+
+
+</mapper>
