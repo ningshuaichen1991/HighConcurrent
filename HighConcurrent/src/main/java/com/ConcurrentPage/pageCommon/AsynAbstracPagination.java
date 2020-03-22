@@ -1,11 +1,13 @@
 package com.ConcurrentPage.pageCommon;
 
+import com.remoteCall.ThreadPoolCommon;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 异步查询分页数据

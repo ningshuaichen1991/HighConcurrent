@@ -23,14 +23,30 @@ public class TestConcurrentPage {
 
 
     /**
-     * 最简单直接的方式
+     * 并行执行测试
      */
     @Test
-    public void testEasiestWay() throws Exception {
+    public void queryConcurrentCostPage() throws Exception {
         Map<String,Object> params = new HashMap<>();
         params.put("type","主动还款");
         params.put("startNo",1);
         params.put("pageSize",100);
-        Pagination<Cost>  costPagination =  concurrentPage.queryCostPage(params);
+        long s = System.currentTimeMillis();
+        Pagination<Cost>  costPagination =  concurrentPage.queryConcurrentCostPage(params);
+        log.info("总共消耗时间：{}",(System.currentTimeMillis() - s));
+    }
+
+    /**
+     * 串行执行测试  15071
+     */
+    @Test
+    public void querySerialCostPage() throws Exception {
+        Map<String,Object> params = new HashMap<>();
+        params.put("type","主动还款");
+        params.put("startNo",1);
+        params.put("pageSize",100);
+        long s = System.currentTimeMillis();
+        Pagination<Cost>  costPagination =  concurrentPage.querySerialCostPage(params);
+        log.info("总共消耗时间：{}",(System.currentTimeMillis() - s));
     }
 }

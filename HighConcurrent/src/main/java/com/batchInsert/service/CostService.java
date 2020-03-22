@@ -1,4 +1,7 @@
 package com.batchInsert.service;
+import java.io.File;
+import	java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import	java.util.Random;
@@ -22,16 +25,10 @@ public class CostService {
     private CostDao costDao;
 
     public void insertBatchForkin(){
-        ForkJoinPool pool=new ForkJoinPool();
         List<Cost> costList = getAllCost();
-        long s = System.currentTimeMillis();
+        ForkJoinPool pool=new ForkJoinPool();
         pool.execute(new MyTask(costList, 0, costList.size()));
         pool.shutdown();
-        //线程阻塞，等待所有任务完成
-        while(!pool.isTerminated()) {//如果未完成则一直循环
-            break;
-        }
-        log.info("总耗时：{}",System.currentTimeMillis()-s);
     }
 
     public void select(){
@@ -74,16 +71,17 @@ public class CostService {
         }
     }
 
+    /**
+     * 模拟将要插入的费用数据
+     * @return
+     */
     private List<Cost> getAllCost(){
         String typeArray [] = {"划扣","主动还款","逾期还款"};
         Random random = new Random();
         List<Cost> costList = Lists.newArrayList();
-        for(int i = 1;i<1000000;i++){
-            costList.add(new Cost(1,typeArray[random.nextInt(3)],new Date(), BigDecimal.valueOf(i)));
+        for(int i = 1;i<=10000000;i++){
+            costList.add(new Cost(i,typeArray[random.nextInt(3)],new Date(), BigDecimal.valueOf(i)));
         }
-        List<Cost> c = Lists.newArrayList();
-        c.add(new Cost(1,"fff",new Date(),BigDecimal.valueOf(100)));
-        costDao.batchInsert(c);
         return costList;
     }
 }

@@ -10,11 +10,26 @@ import java.util.Map;
 @Mapper
 public interface CostDao {
 
+    /**
+     * 批量插入
+     * @param list
+     * @return
+     */
     int batchInsert(@Param("listData") List<Cost> list);
 
     Cost selectByPrimaryKey(int id);
 
+    /**
+     * 总共费用数
+     * @param param
+     * @return
+     */
     int selectTotal(Map<String,Object> param);
 
+    /**
+     * 费用信息分页
+     * @param param
+     * @return
+     */
     List<Cost> ListPage(Map<String,Object> param);
 }

@@ -4,12 +4,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class AbstractSendMsg {
-
+    /**
+     * 成功
+     * @param msg
+     */
     public abstract void success(String msg);
 
+    /**
+     * 失败
+     * @param e
+     * @param msg
+     */
     public abstract void failure(Throwable e,String msg);
 
-
+    /**
+     * 发送状态
+     * @param msg
+     */
     public void sendStatus(String msg){
         try{
             if(msg.length()>5){

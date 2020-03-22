@@ -18,7 +18,7 @@ public class TestHighConcurrentRemoteCall {
 
 
     /**
-     * 最简单直接的方式
+     * 不需要返回值的多线程设计
      */
     @Test
     public void testEasiestWay() throws Exception {
@@ -26,7 +26,7 @@ public class TestHighConcurrentRemoteCall {
     }
 
     /**
-     *
+     *需要返回值的多线程远程调用
      */
     @Test
     public void testFuture() throws Exception {
@@ -35,7 +35,7 @@ public class TestHighConcurrentRemoteCall {
 
 
     /**
-     *
+     *通过join的方式实现
      */
     @Test
     public void testJoin() throws Exception {
@@ -44,7 +44,7 @@ public class TestHighConcurrentRemoteCall {
 
 
     /**
-     *
+     * 征信下载和征信解析
      */
     @Test
     public void testCompletableFuture() throws Exception {

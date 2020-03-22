@@ -12,10 +12,10 @@
   </sql>
 
   <insert id="batchInsert" parameterType="java.util.ArrayList" >
-    insert into cost (type, create_date, money)
+    insert into cost (id,type, create_date, money)
     values
     <foreach collection="listData" item="l" separator=",">
-      (#{l.type},#{l.createDate},#{l.money})
+      (#{l.id},#{l.type},#{l.createDate},#{l.money})
     </foreach>
   </insert>
 

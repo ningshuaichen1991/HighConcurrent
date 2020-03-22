@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class HttpCreditAccess {
 
     /**
-     * 征信下载
+     * 征信获取下载
      * @param idCode
      * @return
      */

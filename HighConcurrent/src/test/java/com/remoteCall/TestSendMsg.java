@@ -1,8 +1,5 @@
 package com.remoteCall;
 
-import com.ConcurrentPage.ConcurrentPageService;
-import com.ConcurrentPage.pageCommon.Pagination;
-import com.batchInsert.domain.Cost;
 import com.sendMsg.SendMsgService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -11,8 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +23,6 @@ public class TestSendMsg {
      */
     @Test
     public void sendMsg() throws Exception {
-        sendMsgService.sendServer("你好dfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsfdsf");
+        sendMsgService.sendServer("疫情是全世界的一场灾难");
     }
 }

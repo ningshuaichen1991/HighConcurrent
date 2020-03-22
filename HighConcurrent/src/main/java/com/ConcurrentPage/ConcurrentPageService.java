@@ -16,8 +16,12 @@ public class ConcurrentPageService {
     @Resource
     private CostDao costDao;
 
-
-    public Pagination<Cost> queryCostPage(Map<String,Object> params){
+    /**
+     * 并行查询
+     * @param params
+     * @return
+     */
+    public Pagination<Cost> queryConcurrentCostPage(Map<String,Object> params){
         Pagination<Cost> pagination = new Pagination<> ();
         AsynAbstracPagination<Cost,Map<String,Object>> costPage = new AsynAbstracPagination<Cost, Map<String, Object>>() {
             @Override
@@ -31,6 +35,22 @@ public class ConcurrentPageService {
             }
         };
         costPage.execute(pagination,params);
+        return pagination;
+    }
+
+
+
+
+
+    /**
+     * 串行查询
+     * @param params
+     * @return
+     */
+    public Pagination<Cost> querySerialCostPage(Map<String,Object> params){
+        Pagination<Cost> pagination = new Pagination<> ();
+        pagination.setTotal(costDao.selectTotal(params));
+        pagination.setRows(costDao.ListPage(params));
         return pagination;
     }
 }
