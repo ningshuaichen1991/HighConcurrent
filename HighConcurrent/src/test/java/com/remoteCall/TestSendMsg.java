@@ -19,7 +19,7 @@ public class TestSendMsg {
 
 
     /**
-     * 最简单直接的方式
+     * 发送消息
      */
     @Test
     public void sendMsg() throws Exception {

@@ -15,7 +15,7 @@ public class HttpCreditAccess {
     public String downloadCredit(String idCode){
         try {
             log.info("身份证号：{},开始远程拉取征信报告，线程号：{}",idCode,Thread.currentThread().getName());
-            Thread.sleep(500);
+            Thread.sleep(5000);
             log.info("拉取成功，并已存入磁盘中……");
             return "success";
         } catch (InterruptedException e) {

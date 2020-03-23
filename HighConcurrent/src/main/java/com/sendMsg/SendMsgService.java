@@ -35,6 +35,9 @@ public class SendMsgService {
                 cont.countDown();
             }
         });
+
+        log.info("处理自己的业务逻辑～～～～");
+        Thread.sleep(1000);
         cont.await();
         log.info("完成发送！！！！");
     }

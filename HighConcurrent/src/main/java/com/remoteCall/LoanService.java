@@ -83,9 +83,9 @@ public class LoanService {
             result.put("status",httpCreditAccess.downloadCredit(idCode)) ;
         });
         thread.start();
-        //Thread.sleep(1000);
+        Thread.sleep(1000);
         try{
-            thread.join();
+            thread.join(5000);//等待一秒钟
         }catch (Throwable e) {
             e.printStackTrace();
         }
