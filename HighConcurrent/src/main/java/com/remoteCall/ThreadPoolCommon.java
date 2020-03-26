@@ -46,17 +46,19 @@ public class ThreadPoolCommon {
 
         /**
          * 最大努力执行任务型，当触发拒绝策略时，在尝试一分钟的时间重新将任务塞进任务队列，
-         * 当一分钟超时还没成功时，就抛出异常
+         * 当一分钟超时还没成功时，把它放在异常队列中
          */
         public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
             try {
                 log.info("msg：{}, 拒绝策略放进线程池中，60s中将继续尝试，如果超过60s则抛出异常");
-                threadPoolExecutor.getQueue().offer(r, 60, TimeUnit.SECONDS);//尝试60s中往队列中放入
+                boolean status = threadPoolExecutor.getQueue().offer(r, 60, TimeUnit.SECONDS);//尝试60s中往队列中放入
+                if(!status){
+                    threadPoolRunnableException.add(r);
+                }
             } catch (InterruptedException ex) {
                 log.error("60s还是未成功放进线程池中",e);
-                threadPoolRunnableException.add(r);
+
             }
         }
     }
-
 }
